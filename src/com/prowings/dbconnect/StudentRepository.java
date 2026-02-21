@@ -119,18 +119,32 @@ public class StudentRepository {
 	public boolean saveStudent(Student std) {
 		System.out.println("saveStudent() started - for Student Object - " + std);
 		boolean res = false;
-		String ctreateStdQuery = "insert into Student (rollNumber, name, address) values (" + std.getRollNumber()
-				+ ", '" + std.getName() + "', '" + std.getAddress() + "');";
-		System.out.println(">>>>> CREATE QUERY : " + ctreateStdQuery);
+//		String ctreateStdQuery = "insert into Student (rollNumber, name, address) values (" + std.getRollNumber()
+//				+ ", '" + std.getName() + "', '" + std.getAddress() + "');";
+		
+		String preparedStmtQuery = "insert into Student (rollNumber, name, address) values (?,?,?)";
+		
+		
+//		System.out.println(">>>>> CREATE QUERY : " + ctreateStdQuery);
 		// save incoming student object to DB
 		// 5 steps to connect to DB
 		Connection con = DbConnectionUtils.getDbConnection();
 		try {
 			if (con != null) {
 				// step3: Create Statement
-				Statement stmt = con.createStatement();
+//				Statement stmt = con.createStatement();
+				
+				PreparedStatement ps = con.prepareStatement(preparedStmtQuery);
+				ps.setInt(1, std.getRollNumber());
+				ps.setString(2, std.getName());
+				ps.setString(3, std.getAddress());
+				
 				// step4: Execute Query
-				stmt.execute(ctreateStdQuery);
+//				stmt.execute(ctreateStdQuery);
+				
+				ps.execute();
+				ps.close();
+//				stmt.close();
 				System.out.println("Student data written into DB Table successfully!!");
 				res = true;
 			}

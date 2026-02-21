@@ -1,5 +1,7 @@
 package com.prowings.dbconnect;
 
+import java.util.List;
+
 public class TestStudentRepository {
 	
 	
@@ -9,7 +11,7 @@ public class TestStudentRepository {
 		StudentRepository repository = new StudentRepository();
 		
 		//1. save new student to DB
-		Student student = new Student(80, "aaa", "bbb");
+		Student student = new Student(99, "Yuvraj", "Punjab");
 		if(repository.saveStudent(student))
 			System.out.println("RECORD INSERTED SUCCESSFULLY!!!");
 		else
@@ -21,8 +23,8 @@ public class TestStudentRepository {
 		System.out.println(">>> Fetched Std : "+s);
 
 		//3. Get all students 
-//		List<Student> stdLst = repository.getAllStudents();
-//		System.out.println(">>> Fetched Stds : "+stdLst);
+		List<Student> stdLst = repository.getAllStudents();
+		System.out.println(">>> Fetched Stds : "+stdLst);
 		
 
 		//4. Update existing student by roll number
